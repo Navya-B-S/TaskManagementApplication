@@ -1,0 +1,97 @@
+﻿@*//Add namespace to use the model*@
+@model IEnumerable<TaskManagementApplication.Models.Task>
+@*//Create a title with name Task Management List*@
+<h1>Task Management List</h1>
+
+@*//Create a link to Create a new task*@
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@*//Create a table with border 1px and cellpadding 10px to display the list of tasks from Task model*@
+<table class="table" border="1" cellpadding="10">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Priority)
+        </td>
+            @*//if due date is less than current date and status is not completed then display the task in red color*@
+            @if (item.DueDate < DateTime.Now && item.Status != "Completed")
+            {
+                <td style="color:red">
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.DueDate)
+                </td>
+            }
+            @*//if status is completed then display the task in green color*@
+            @if (item.Status == "Completed")
+                        {
+                            <td style="color:green">
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                        }
+        @*//if status is completed then remove the edit and delete link*@
+        @if (item.Status == "Completed")
+        {
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.TaskId })
+            </td>
+        }
+        else
+        {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TaskId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TaskId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TaskId })
+            </td>
+        }
+
+    </tr>
+    }
+</table>
+
+
+
+

@@ -1,0 +1,51 @@
+﻿@*//add namespace to use the model*@
+@model TaskManagementApplication.Models.Task
+@*//add title with Details of the Task*@
+<h1>Details of the Task</h1>
+@*//add link to go back to the list of tasks*@
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@*//create a table with border 1px and cellpadding 10px to display the details of the task*@
+<table class="table" border="1" cellpadding="10">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Title)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Description)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Priority)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.DueDate)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <td>
+            @Html.DisplayFor(model => model.Status)
+        </td>
+    </tr>
+</table>

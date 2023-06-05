@@ -1,0 +1,97 @@
+﻿@*//add namespace to use the model*@
+@model TaskManagementApplication.Models.Task
+
+@*//add title with Edit Task*@
+<h1>Edit Task</h1>
+
+@*//add link to go back to the list of tasks*@
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@*//add link to Save the details of the task*@
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*//create a table with cellpadding 10px to display the details of the task*@
+        <table cellpadding="10" border="1">
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-3" })
+                </td>
+                <td>
+                        @*//display the title of the task*@
+                    @Html.EditorFor(model => model.Title)
+                    @*//display the validation message if the title is not entered*@
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </td>
+                </tr>
+<tr>
+  <td>
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
+                </td>
+                <td>
+                        @*//display the description of the task*@
+                    @Html.EditorFor(model => model.Description)
+                    @*//display the validation message if the description is not entered*@
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </td>
+                </tr>
+<tr>
+<td>
+                        @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-5" })
+                    </td>
+                    <td>
+                    @*//Add dropdown list to select the priority of the task*@
+@Html.DropDownListFor(model => model.Priority, new List<SelectListItem>
+                    {
+                        new SelectListItem{ Text="High", Value = "High" },
+                        new SelectListItem{ Text="Medium", Value = "Medium" },
+                        new SelectListItem{ Text="Low", Value = "Low" }
+                    }, "Select Priority")
+                    @*//display the validation message if the priority is not selected*@
+                    @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                    </td>
+                    </tr>
+<tr>
+<td>
+                        @Html.LabelFor(model => model.DueDate, htmlAttributes: new { @class = "control-label col-md-3" })
+                    </td>
+                    <td>
+
+                    @*//Add datepicker to select the due date of the task in the format dd/mm/yyyy *@
+                        @Html.EditorFor(model => model.DueDate, new { htmlAttributes = new { @class = "form-control datepicker", @Value = Model.DueDate.ToString("dd/MM/yyyy") } })
+                    @*//display the validation message if the due date is not selected*@
+                    @Html.ValidationMessageFor(model => model.DueDate, "", new { @class = "text-danger" })
+                    </td>
+                    </tr>
+<tr>
+<td>
+                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-5" })
+                    </td>
+                    <td>
+                    @*//add dropdown list to select the status of the task*@
+                    @Html.DropDownListFor(model => model.Status, new List<SelectListItem>
+                    {
+                        new SelectListItem{ Text="Not Started", Value = "Not Started" },
+                        new SelectListItem{ Text="In Progress", Value = "In Progress" },
+                        new SelectListItem{ Text="Completed", Value = "Completed" }
+                    }, "Select Status")
+                    @*//display the validation message if the status is not selected*@
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </td>
+<tr>
+    </table>
+    @*//give space between the table and the Save button*@
+<br />
+        <div class="form-group">
+            @*//add link to Save the details of the task*@
+                <div class="col-md-offset-3 col-md-20">
+                <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+        </div>
+</div>
+}
